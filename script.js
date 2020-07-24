@@ -15,9 +15,10 @@ window.onload = function(){
   
   let level = 0;
   let index = 0;
-  let timer = 6-level;
+  let timer = 6 - level;
   let score = 0;
   let highScore = 0;
+  inputWord.value = "";
 
   //words
   let words = [['splendid', 'waffle', 'anger', 'gargle', 'fragile', 'believe', 'recess', 'concern', 'hesitant', 'rotten', 'prefer', 'pick','letter', 'enormous', 'compete', 'dangerous', 'envious', 'thrill', 'zephyr', 'bent', 'oil', 'holiday', 'plot', 'canvas','neat', 'cycle', 'flood', 'instinctive', 'boy', 'introduce', 'change', 'murder', 'string', 'outstanding', 'vengeful', 'furry','pleasure', 'eager', 'rain', 'bells', 'marked', 'skip', 'enchanted', 'meddle', 'bear', 'upbeat', 'zoo', 'sudden'],
@@ -31,6 +32,7 @@ window.onload = function(){
 
 
   function startGame() {
+    start.style.visibility = "hidden";
     inputWord.value = "";
     inputWord.focus();
 
@@ -65,8 +67,11 @@ window.onload = function(){
     if(timer==0)
     {
       clearInterval(timerInterval);
+      alertMessage.style.color = "rgba(248,7,39)";
+      alertMessage.style.fontSize = "40px";
       alertMessage.innerText = "GAME OVER!";
       currentWord.innerText = "Click Restart to play again.";
+      restart.style.visibility = "visible";
       restart.addEventListener("click",restartGame);
         
     }
@@ -74,6 +79,8 @@ window.onload = function(){
   }
 
   function restartGame(){
+    alertMessage.innerText = "";
+    restart.style.visibility = "hidden";
     changeLevel(0);
     timer = 6 - level;
     index = 0;
@@ -88,6 +95,7 @@ window.onload = function(){
   function matchWord(){
     //console.log(currentWord.innerText);
     //console.log(inputWord.value)
+    alertMessage.innerText="";
     if(currentWord.innerText === inputWord.value)
     {
       //console.log(index);
@@ -96,6 +104,9 @@ window.onload = function(){
           index = 0;
           changeLevel(level+1);
         }
+      alertMessage.style.color = "rgba(46,206,61)";
+      alertMessage.style.fontSize = "30px";
+      alertMessage.innerText = "Correct!"
       setScore();
       setHighScore();
       inputWord.value = "";
